@@ -23,7 +23,27 @@ from selenium import webdriver
 def home(request):
     if request.method == 'POST' and 'url' in request.POST:
         url = request.POST.get('url', '')
-        wd = webdriver.Chrome(executable_path=r'media/chromedriver.exe')
+        import os
+        #os.chmod('media/chromedriver.exe', 0o755)
+        try:
+            os.chmod('media/linux64/chromedriver', 0o755)
+            wd = webdriver.Chrome(executable_path=r'media/linux64/chromedriver')
+            print("tried linux64")
+        except:
+            try:
+                os.chmod('media/linux32/chromedriver', 0o755)
+                wd = webdriver.Chrome(executable_path=r'media/linux32/chromedriver')
+                print("tried linux32")
+            except:
+                try:
+                    os.chmod('media/mac64/chromedriver', 0o755)
+                    wd = webdriver.Chrome(executable_path=r'media/mac64/chromedriver')
+                    print("tried mac64")
+                except:
+                    os.chmod('media/win/chromedriver.exe', 0o755)
+                    wd = webdriver.Chrome(executable_path=r'media/win/chromedriver.exe')
+                    print("tried win")
+        
         wd.set_window_size(1200, 770)
         wd.get(url)
         wd.save_screenshot('static/my_screenshot.png')
