@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Python Screenshot Generator</title>
+</head>
+<body>
+<div>
+  <h1>Python Screenshot Generator</h1>
+  <form action="/" method="post">
+    {% csrf_token %}
+    <input type="url" name="url" size="50" value="{{ full_url }}" placeholder="Enter URL: https://www.abc.com" required>
+    <button type="submit">Generate screenshot</button>
+  </form>
+  <small>Optional params <strong>w, h</strong> for screenshot size and <strong>save</strong> for saving the screenshot in your media dir. <br /> Ex: https://nodejs.org/?w=800&h=600&save=true</small>
+  
+  <img class="img-fluid" src={{f5}} alt="Card image cap" style="animation: linear;">
+</div>
+</body>
+</html>
